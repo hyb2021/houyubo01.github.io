@@ -1,0 +1,146 @@
+<hr>
+<p>layout: docs<br>group: docs-volantis-latest<br>order: 701<br>title: 开发文档<br>short_title: 7. 开发文档<br>sidebar: [docs-volantis-latest, toc]<br>disqus:<br>  path: /</p>
+<hr>
+<p>
+{% span logo center large, <sup>&ensp;</sup>Volantis<sup>5</sup> %}
+{% span center small logo, Development API for Volantis %}
+</p>
+<br>
+
+<h2 id="全局变量-volantis"><a href="#全局变量-volantis" class="headerlink" title="全局变量 volantis"></a>全局变量 volantis</h2><p>我们提供了全局变量 volantis 和一些全局函数等主题开发调用接口。</p>
+<p>源码参考：<a href="https://github.com/volantis-x/hexo-theme-volantis/blob/e4c05ff9c7b2b2f458ce6418daf94dfa9103a9b2/layout/_partial/scripts/global.ejs"><code>layout/_partial/scripts/global.ejs</code></a></p>
+<h2 id="Pjax"><a href="#Pjax" class="headerlink" title="Pjax"></a>Pjax</h2><h3 id="Pjax-重载区域划分接口"><a href="#Pjax-重载区域划分接口" class="headerlink" title="Pjax 重载区域划分接口"></a>Pjax 重载区域划分接口</h3><p>我们提供了可以实现Pjax重载区域灵活划分的开发接口。</p>
+<p>源码参考：<a href="https://github.com/volantis-x/hexo-theme-volantis/blob/e4c05ff9c7b2b2f458ce6418daf94dfa9103a9b2/layout/_third-party/pjax/index.ejs"><code>layout/_third-party/pjax/index.ejs</code></a></p>
+<h4 id="lt-pjax-gt-lt-pjax-gt-标签"><a href="#lt-pjax-gt-lt-pjax-gt-标签" class="headerlink" title="&lt;pjax&gt;&lt;/pjax&gt; 标签"></a><code>&lt;pjax&gt;&lt;/pjax&gt;</code> 标签</h4><p>所有被 <code>&lt;pjax&gt;&lt;/pjax&gt;</code> 标签包裹的所有元素将被pjax重载。</p>
+<pre><code class="html">&lt;pjax&gt;
+    &lt;!--我是将被pjax重载的内容 begin--&gt;
+    &lt;div&gt;
+        &lt;div&gt;&lt;/div&gt;
+        &lt;script&gt;&lt;/script&gt;
+    &lt;/div&gt;
+    &lt;!--我是将被pjax重载的内容 end--&gt;
+&lt;/pjax&gt;
+</code></pre>
+<p>使用案例：<a href="https://github.com/volantis-x/hexo-theme-volantis/blob/e4c05ff9c7b2b2f458ce6418daf94dfa9103a9b2/layout/_partial/snackbar.ejs"><code>layout/_partial/snackbar.ejs</code></a></p>
+<h4 id="script-data-pjax"><a href="#script-data-pjax" class="headerlink" title="script[data-pjax]"></a><code>script[data-pjax]</code></h4><p>所有含有 <code>data-pjax</code> 标记的 <code>script</code> 标签将被pjax重载。</p>
+<pre><code class="html">&lt;script data-pjax&gt;我是将被pjax重载的内容&lt;/script&gt;
+</code></pre>
+<h4 id="pjax-reload-script"><a href="#pjax-reload-script" class="headerlink" title=".pjax-reload script"></a><code>.pjax-reload script</code></h4><p>所有在 <code>pjax-reload</code> Class元素内部的 <code>script</code> 标签将被pjax重载。</p>
+<pre><code class="html">&lt;div class=&quot;pjax-reload&quot;&gt;
+    &lt;div&gt;
+        &lt;div&gt;我不是将被pjax重载的内容&lt;/div&gt;
+        &lt;script&gt;我是将被pjax重载的内容&lt;/script&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<h3 id="Pjax-回调方法"><a href="#Pjax-回调方法" class="headerlink" title="Pjax 回调方法"></a>Pjax 回调方法</h3><p>我们提供了灵活的 Pjax 回调方法。</p>
+<p>源码参考：</p>
+<p><a href="https://github.com/volantis-x/hexo-theme-volantis/blob/e4c05ff9c7b2b2f458ce6418daf94dfa9103a9b2/layout/_partial/scripts/global.ejs"><code>layout/_partial/scripts/global.ejs</code></a></p>
+<p><a href="https://github.com/volantis-x/hexo-theme-volantis/blob/e4c05ff9c7b2b2f458ce6418daf94dfa9103a9b2/layout/_third-party/pjax/index.ejs"><code>layout/_third-party/pjax/index.ejs</code></a></p>
+<p>使用案例：<a href="https://github.com/volantis-x/hexo-theme-volantis/blob/b470a86b5188d651b16b5d6fc9d2d5f213640b4e/layout/_third-party/pjax/animate.ejs#L27-L29"><code>layout/_third-party/pjax/animate.ejs</code></a></p>
+<p>{% note info, 中括号[]里面的内容表示选项是可选的，可以不填。下同，不再赘述。 %}</p>
+<h4 id="volantis-pjax-push-在Pjax请求完成后触发。"><a href="#volantis-pjax-push-在Pjax请求完成后触发。" class="headerlink" title="volantis.pjax.push 在Pjax请求完成后触发。"></a><code>volantis.pjax.push</code> 在Pjax请求完成后触发。</h4><p>使用 <code>volantis.pjax.push(callBack[,&quot;callBackName&quot;])</code> 传入<code>pjax:complete</code>回调函数。</p>
+<p><code>callBack</code>是回调函数,必填。</p>
+<p><code>&quot;callBackName&quot;</code> <code>string</code>类型 默认值是回调函数的函数名，选填。</p>
+<h4 id="volantis-pjax-send-在Pjax请求开始后触发。"><a href="#volantis-pjax-send-在Pjax请求开始后触发。" class="headerlink" title="volantis.pjax.send 在Pjax请求开始后触发。"></a><code>volantis.pjax.send</code> 在Pjax请求开始后触发。</h4><p>使用 <code>volantis.pjax.send(callBack[,&quot;callBackName&quot;])</code> 传入<code>pjax:send</code>回调函数。</p>
+<p><code>callBack</code>是回调函数,必填。</p>
+<p><code>&quot;callBackName&quot;</code> <code>string</code>类型 默认值是回调函数的函数名，选填。</p>
+<h4 id="volantis-pjax-error-在Pjax请求失败后触发。"><a href="#volantis-pjax-error-在Pjax请求失败后触发。" class="headerlink" title="volantis.pjax.error 在Pjax请求失败后触发。"></a><code>volantis.pjax.error</code> 在Pjax请求失败后触发。</h4><p>使用 <code>volantis.pjax.error(callBack[,&quot;callBackName&quot;])</code> 传入<code>pjax:error</code>回调函数。</p>
+<p><code>callBack</code>是回调函数,必填。</p>
+<p><code>&quot;callBackName&quot;</code> <code>string</code>类型 默认值是回调函数的函数名，选填。</p>
+<h2 id="暗黑模式"><a href="#暗黑模式" class="headerlink" title="暗黑模式"></a>暗黑模式</h2><p>我们提供了暗黑模式灵活的开发接口。</p>
+<p>源码参考：</p>
+<p><a href="https://github.com/volantis-x/hexo-theme-volantis/blob/e4c05ff9c7b2b2f458ce6418daf94dfa9103a9b2/layout/_partial/scripts/global.ejs"><code>layout/_partial/scripts/global.ejs</code></a></p>
+<p><a href="https://github.com/volantis-x/hexo-theme-volantis/blob/e4c05ff9c7b2b2f458ce6418daf94dfa9103a9b2/layout/_partial/scripts/darkmode.ejs"><code>layout/_partial/scripts/darkmode.ejs</code></a></p>
+<h3 id="暗黑模式样式"><a href="#暗黑模式样式" class="headerlink" title="暗黑模式样式"></a>暗黑模式样式</h3><p>详见：<a href="https://github.com/volantis-x/hexo-theme-volantis/blob/e4c05ff9c7b2b2f458ce6418daf94dfa9103a9b2/source/css/_plugins/dark.styl"><code>source/css/_plugins/dark.styl</code></a></p>
+<h3 id="当前模式"><a href="#当前模式" class="headerlink" title="当前模式"></a>当前模式</h3><p>调用 <code>volantis.dark.mode</code> 查看当前模式。返回值为字符串 <code>dark</code> 或者 <code>light</code>。</p>
+<h3 id="暗黑模式触发器"><a href="#暗黑模式触发器" class="headerlink" title="暗黑模式触发器"></a>暗黑模式触发器</h3><p>调用 <code>volantis.dark.toggle()</code> 触发切换亮黑模式。</p>
+<h3 id="暗黑模式触发器回调函数"><a href="#暗黑模式触发器回调函数" class="headerlink" title="暗黑模式触发器回调函数"></a>暗黑模式触发器回调函数</h3><p>调用 volantis.dark.push(callBack[,”callBackName”]) 传入触发器回调函数.</p>
+<p>使用案例：<a href="https://github.com/volantis-x/hexo-theme-volantis/blob/124e9c6c34a28841a902895d16feeacc60043ecb/layout/_third-party/comments/utterances/script.ejs#L39"><code>layout/_third-party/comments/utterances/script.ejs</code></a></p>
+<h2 id="Message-消息提示"><a href="#Message-消息提示" class="headerlink" title="Message 消息提示"></a>Message 消息提示</h2><p>我们提供了 Message 消息提示灵活的开发接口。</p>
+<p>源码参考：</p>
+<p><a href="https://github.com/volantis-x/hexo-theme-volantis/blob/e4c05ff9c7b2b2f458ce6418daf94dfa9103a9b2/layout/_partial/scripts/global.ejs"><code>layout/_partial/scripts/global.ejs</code></a></p>
+<p><a href="https://github.com/volantis-x/hexo-theme-volantis/blob/e4c05ff9c7b2b2f458ce6418daf94dfa9103a9b2/layout/_third-party/message/script.ejs"><code>layout/_third-party/message/script.ejs</code></a></p>
+<pre><code class="js">volantis.message(&quot;title&quot;,&quot;message&quot;,&quot;type&quot;,autoClose,time)
+</code></pre>
+<p>参数都是String类型，可选的。</p>
+<table>
+<thead>
+<tr>
+<th>title</th>
+<th>标题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>message</td>
+<td>信息</td>
+</tr>
+<tr>
+<td>type</td>
+<td>图标类型 【info、warning、error、question】</td>
+</tr>
+<tr>
+<td>autoClose</td>
+<td>自动关闭</td>
+</tr>
+<tr>
+<td>time</td>
+<td>显示时间，默认3秒</td>
+</tr>
+</tbody></table>
+<h2 id="动态加载脚本"><a href="#动态加载脚本" class="headerlink" title="动态加载脚本"></a>动态加载脚本</h2><p>源码参考：</p>
+<p><a href="https://github.com/volantis-x/hexo-theme-volantis/blob/e4c05ff9c7b2b2f458ce6418daf94dfa9103a9b2/layout/_partial/scripts/global.ejs"><code>layout/_partial/scripts/global.ejs</code></a></p>
+<pre><code class="js">  volantis.js(&quot;src&quot;, cb)
+  volantis.css(&quot;src&quot;)
+</code></pre>
+<p><code>src</code> String类型 加载脚本URL</p>
+<p><code>cb</code> 可选 可以传入onload回调函数 或者 JSON对象 例如: <code>volantis.js(&quot;src&quot;, ()=&gt;{})</code> 或 <code>volantis.js(&quot;src&quot;, {defer:true,onload:()=&gt;{}})</code></p>
+<p>返回 Promise 对象</p>
+<p>如下方法同步加载资源，这利于处理文件资源之间的依赖关系，例如：APlayer 需要在 MetingJS 之前加载</p>
+<pre><code class="js">   (async () =&gt; {
+       await volantis.js(&quot;...theme.plugins.aplayer.js.aplayer...&quot;)
+       await volantis.js(&quot;...theme.plugins.aplayer.js.meting...&quot;)
+   })();
+</code></pre>
+<p>使用案例：<a href="https://github.com/volantis-x/hexo-theme-volantis/blob/a3ff7225974ee80240cc68d91ce14f7da4c02daf/layout/_third-party/aplayer/script.ejs#L7-L15"><code>layout/_third-party/aplayer/script.ejs</code></a></p>
+<p>由于返回的是 Promise 对象，也可以采用以下方式实现加载完成后调用回调函数：</p>
+<pre><code class="js">   volantis.js(&quot;https://cdn.jsdelivr.net/npm/jquery&quot;).then(()=&gt;{
+       console.log(&quot;我在脚本加载完成后调用&quot;)
+   })
+</code></pre>
+<h2 id="对本地文件使用CDN"><a href="#对本地文件使用CDN" class="headerlink" title="对本地文件使用CDN"></a>对本地文件使用CDN</h2><p>源码参考：</p>
+<p><a href="https://github.com/volantis-x/hexo-theme-volantis/blob/e4c05ff9c7b2b2f458ce6418daf94dfa9103a9b2/layout/_partial/scripts/cdnCtrl.ejs"><code>layout/_partial/scripts/cdnCtrl.ejs</code></a></p>
+<pre><code class="js">theme.cdn.addJS(&quot;name&quot;,&quot;source&quot;,&quot;force&quot;)
+theme.cdn.addCSS(&quot;name&quot;,&quot;source&quot;,&quot;force&quot;)
+</code></pre>
+<p>参数都为 String 类型，其中 source 和 force 是可选的。</p>
+<p>返回值为 CDN 处理后的链接，并存入<code>theme.cdn.map.js</code>和<code>theme.cdn.map.css</code>中</p>
+<p>可以使用<code>theme.cdn.map.js[&quot;name&quot;]</code>再次调用。</p>
+<p><code>&quot;name&quot;</code> 是自定义名称</p>
+<p><code>&quot;source&quot;</code> 是资源路径</p>
+<p><code>&quot;force&quot;</code> 是强制覆盖的资源路径</p>
+<p>如果<code>&quot;source&quot;</code>为空，则将<code>&quot;name&quot;</code>赋值给<code>&quot;source&quot;</code>。</p>
+<p>例如：</p>
+<p>对于文件<code>source/js/plugins/sites.js</code>使用CND链接，使用如下方法生成。</p>
+<pre><code class="js">theme.cdn.addJS(&quot;sites&quot;,&quot;plugins/sites&quot;)
+</code></pre>
+<p>生成的CDN链接可使用 <code>theme.cdn.map.js.sites</code> 回调。</p>
+<p>以下用于配置项 cdn.set 覆盖配置,下面是覆盖配置的方法</p>
+<pre><code class="yml">cdn:
+   enable: true
+   # 以下配置可以覆盖 cdn.prefix,配置项的值可以为空，但是要使用CDN必须依据路径填写配置项的键
+   set:
+     js:
+       app: https://cdn.jsdelivr.net/gh/volantis-x/volantis-x.github.io@gh-page/js/app.js
+       rightMenu: https://cdn.jsdelivr.net/gh/volantis-x/volantis-x.github.io@gh-page/js/rightMenu.js
+       parallax: https://cdn.jsdelivr.net/gh/volantis-x/volantis-x.github.io@gh-page/js/jquery.parallax.min.js
+       plugins:
+         contributors: https://cdn.jsdelivr.net/gh/volantis-x/volantis-x.github.io@gh-page/js/plugins/contributors.js
+         friends: https://cdn.jsdelivr.net/gh/volantis-x/volantis-x.github.io@gh-page/js/plugins/friends.js
+         sites: https://cdn.jsdelivr.net/gh/volantis-x/volantis-x.github.io@gh-page/js/plugins/sites.js
+     css:
+       style: https://cdn.jsdelivr.net/gh/volantis-x/volantis-x.github.io@gh-page/css/style.css
+       message: https://cdn.jsdelivr.net/gh/volantis-x/volantis-x.github.io@gh-page/css/message.css
+</code></pre>
+<p>直接使用cdn配置项，不使用<code>theme.cdn.addJS(&quot;sites&quot;,&quot;plugins/sites&quot;)</code> 也可以生成 <code>theme.cdn.map.js.sites</code> CDN链接回调</p>
+<p>{% note warning up, 请注意，以上是主题开发文档，不是使用文档！ %}</p>
