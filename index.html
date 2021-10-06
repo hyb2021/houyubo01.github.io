@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>hyb_testone</title>
+		<title>happy birthday!</title>
 		<style>
 		body
 			{
@@ -17,7 +17,7 @@ top:50%;
   transform:translateY(-50%);
   font-family: 'Love Ya Like A Sister', cursive;
   font-size: 40px;
-  color: #c000;
+  color: #c70012;
   padding: 0 20px;
 }
 h1 span{
@@ -233,27 +233,6 @@ var Heart = function(x,y){
   }
 }
 
-Heart.prototype.draw = function(){
-  this.size -= this.speedSize;
-  this.x += this.speedX;
-  this.y += this.speedY;
-  ctx.save();
-  ctx.translate(-1000,this.y);
-  ctx.scale(this.size, this.size);
-  ctx.beginPath();
-  for (var i = 0; i < precision; i++) {
-    var vector = this.vertices[i];
-    ctx.lineTo(vector.x, vector.y);
-  }
-  ctx.globalAlpha = this.size;
-  ctx.shadowBlur = Math.round((3 - this.size) * 10);
-  ctx.shadowColor = "hsla(0, 100%, 60%,0.5)";
-  ctx.shadowOffsetX = this.x + 1000;
-  ctx.globalCompositeOperation = "screen"
-  ctx.closePath();
-  ctx.fill()
-  ctx.restore();
-};
 
 
 
@@ -280,40 +259,26 @@ requestAnimationFrame(render);
 
 window.onload=function starttime(){
 
-        time(h1,'2021/10/3');     // 生日时间
+        time(h1,'2021/1/1');     // 生日时间
         ptimer = setTimeout(starttime,1000); // 添加计时器
-
-		
 }
 
     function time(obj,futimg){
         var nowtime = new Date().getTime(); // 现在时间转换为时间戳
         var futruetime =  new Date(futimg).getTime(); // 未来时间转换为时间戳
-        
-		
-		var msec= futruetime-nowtime;//倒计时，还差多久生日
-        
-		var time = (msec/1000);  // 毫秒/1000
-        
+        var msec = nowtime-futruetime; // 毫秒 未来时间-现在时间
+        var time = (msec/1000);  // 毫秒/1000
         var day = parseInt(time/86400); // 天  24*60*60*1000 
-		
         var hour = parseInt(time/3600)-24*day;    // 小时 60*60 总小时数-过去的小时数=现在的小时数 
-		
-		
         var minute = parseInt(time%3600/60); // 分 -(day*24) 以60秒为一整份 取余 剩下秒数 秒数/60 就是分钟数
-	   
         var second = parseInt(time%60);  // 以60秒为一整份 取余 剩下秒数
-		
-        obj.innerHTML="陶淘老师<br>距离今年生日还有：<br>"+day+"天"+hour+"小时"+minute+"分"+second+"秒"+"了<br><span>祝好</span><p>下<br>滑<br></p>"
-        
-        
+        obj.innerHTML="陈陈<br>你已经来到这个世界：<br>"+day+"天"+hour+"小时"+minute+"分"+second+"秒"+"了<br><span>今日是你的生日，愿所有的快乐、所有的幸福、所有的温馨、所有的好运围绕在你身边。生日快乐！</span>"
 
         return true;
     }
 </script>
 <audio autoplay="autoplay" loop="loop" preload="auto"
-            src="http://music.163.com/song/media/outer/url?id=256469.mp3">       
+            src="http://music.163.com/song/media/outer/url?id=.mp3">       
 </audio>	
 	</body>
 </html>
-
