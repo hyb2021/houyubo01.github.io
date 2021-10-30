@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>test_one</title>
+		<title>happy birthday!</title>
 		<style>
 		body
 			{
@@ -61,11 +61,89 @@ h1 p{
 				text-align: center;
 				line-height:100px;
 			}
-		
-		
-
-		
+		#head div:nth-child(1)
+			{
+				-webkit-transform:rotateY(0deg) translateZ(400px);
+				-moz-transform:rotateY(0deg) translateZ(400px);
+				-ms-transform:rotateY(0deg) translateZ(400px);
+				background:url(images/01.png);
+				background-size:cover;
+			}
+		#head div:nth-child(2)
+			{
+				-webkit-transform:rotateY(36deg) translateZ(500px);
+				-moz-transform:rotateY(36deg) translateZ(500px);
+				-ms-transform:rotateY(36deg) translateZ(500px);
+				background:url(images/02.png
+);
+				background-size:cover;
+			}
 			
+		#head div:nth-child(3)
+			{
+				-webkit-transform:rotateY(72deg) translateZ(400px);
+				-moz-transform:rotateY(72deg) translateZ(400px);
+				-ms-transform:rotateY(72deg) translateZ(400px);
+				background:url(images/03.png);
+				background-size:cover;
+			}
+			
+		#head div:nth-child(4)
+			{
+				-webkit-transform:rotateY(108deg) translateZ(500px);
+				-moz-transform:rotateY(108deg) translateZ(500px);
+				-ms-transform:rotateY(108deg) translateZ(500px);
+				background:url(images/04.png);
+				background-size:cover;
+			}
+		#head div:nth-child(5)
+			{
+				-webkit-transform:rotateY(144deg) translateZ(400px);
+				-moz-transform:rotateY(144deg) translateZ(400px);
+				-ms-transform:rotateY(144deg) translateZ(400px);
+				background:url(images/05.png);
+				background-size:cover;
+			}
+		#head div:nth-child(6)
+			{
+				-webkit-transform:rotateY(180deg) translateZ(500px);
+				-moz-transform:rotateY(180deg) translateZ(500px);
+				-ms-transform:rotateY(180deg) translateZ(500px);
+				background:url(images/06.png);
+				background-size:cover;
+			}
+		#head div:nth-child(7)
+			{
+				-webkit-transform:rotateY(216deg) translateZ(400px);
+				-moz-transform:rotateY(216deg) translateZ(400px);
+				-ms-transform:rotateY(216deg) translateZ(400px);
+				background:url(images/07.png);
+				background-size:cover;
+			}
+		#head div:nth-child(8)
+			{
+				-webkit-transform:rotateY(252deg) translateZ(500px);
+				-moz-transform:rotateY(252deg) translateZ(500px);
+				-ms-transform:rotateY(252deg) translateZ(500px);
+				background:url(images/08.png);
+				background-size:cover;
+			}
+		#head div:nth-child(9)
+			{
+				-webkit-transform:rotateY(288deg) translateZ(400px);
+				-moz-transform:rotateY(288deg) translateZ(400px);
+				-ms-transform:rotateY(288deg) translateZ(400px);
+				background:url(images/09.png);
+				background-size:cover;
+			}
+		#head div:nth-child(10)
+			{
+				-webkit-transform:rotateY(324deg) translateZ(500px);
+				-moz-transform:rotateY(324deg) translateZ(500px);
+				-ms-transform:rotateY(324deg) translateZ(500px);
+				background:url(images/10.png);
+				background-size:cover;
+			}
 		@-webkit-keyframes donghua{
 			0%{transform:rotateX(5deg) rotateY(360deg)}
 			50%{transform:rotateX(-5deg) rotateY(180deg)}
@@ -151,6 +229,27 @@ var Heart = function(x,y){
   }
 }
 
+Heart.prototype.draw = function(){
+  this.size -= this.speedSize;
+  this.x += this.speedX;
+  this.y += this.speedY;
+  ctx.save();
+  ctx.translate(-1000,this.y);
+  ctx.scale(this.size, this.size);
+  ctx.beginPath();
+  for (var i = 0; i < precision; i++) {
+    var vector = this.vertices[i];
+    ctx.lineTo(vector.x, vector.y);
+  }
+  ctx.globalAlpha = this.size;
+  ctx.shadowBlur = Math.round((3 - this.size) * 10);
+  ctx.shadowColor = "hsla(0, 100%, 60%,0.5)";
+  ctx.shadowOffsetX = this.x + 1000;
+  ctx.globalCompositeOperation = "screen"
+  ctx.closePath();
+  ctx.fill()
+  ctx.restore();
+};
 
 
 
@@ -177,7 +276,7 @@ requestAnimationFrame(render);
 
 window.onload=function starttime(){
 
-        time(h1,'1994/9/22');     // 生日时间
+        time(h1,'1996/11/6');     // 生日时间
         ptimer = setTimeout(starttime,1000); // 添加计时器
 }
 
@@ -190,13 +289,13 @@ window.onload=function starttime(){
         var hour = parseInt(time/3600)-24*day;    // 小时 60*60 总小时数-过去的小时数=现在的小时数 
         var minute = parseInt(time%3600/60); // 分 -(day*24) 以60秒为一整份 取余 剩下秒数 秒数/60 就是分钟数
         var second = parseInt(time%60);  // 以60秒为一整份 取余 剩下秒数
-        obj.innerHTML="我<br>已经来到这个世界：<br>"+day+"天"+hour+"小时"+minute+"分"+second+"秒"+"了<br><span></span>"
+        obj.innerHTML="王晴晴<br>你已经来到这个世界：<br>"+day+"天"+hour+"小时"+minute+"分"+second+"秒"+"了<br><span>今日是你的生日，愿所有的快乐、所有的幸福、所有的温馨、所有的好运围绕在你身边。生日快乐！</span><p>下<br>滑<br>有<br>惊<br>喜</p>"
 
         return true;
     }
 </script>
 <audio autoplay="autoplay" loop="loop" preload="auto"
-            src="http://music.163.com/song/media/outer/url?id=.mp3">       
+            src="http://music.163.com/song/media/outer/url?id=1337065812.mp3">       
 </audio>	
 	</body>
 </html>
